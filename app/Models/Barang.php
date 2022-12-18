@@ -5,6 +5,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Barang as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 
 class Barang extends Model
 {
@@ -28,10 +32,10 @@ class Barang extends Model
     protected static $logName = 'Barang';
     protected static $logFillable = true;
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return $this->name . " {$eventName} Oleh: " . Auth::user()->name;
-    }
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     return $this->name . " {$eventName} Oleh: " . Auth::user()->name;
+    // }
 
 
     // public function tapActivity(Activity $activity, string $eventName)

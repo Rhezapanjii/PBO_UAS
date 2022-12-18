@@ -300,6 +300,11 @@ return [
             'url'  => '/barang',
             'icon'  => 'fa fa-chart-pie',
         ],
+        [
+            'text' => 'Transaksi',
+            'url'  => '/transaksi',
+            'icon'  => 'fa fa-chart-pie',
+        ],
         
     ],
 

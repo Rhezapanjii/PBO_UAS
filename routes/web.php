@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\TransaksiController;
 
 
 
@@ -24,10 +25,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('sending-queue-emails', [TestQueueEmails::class,'sendTestEmails']);
+Route::get('sending-queue-emails', [TestQueueEmails::class,'TestSendEmail']);
 
-Route::resource('users', \App\Http\Controllers\UserController::class)
-    ->middleware('auth');
 
 Route::get('/home', function() {
     return view('home');
@@ -35,7 +34,6 @@ Route::get('/home', function() {
 
 Auth::routes();
 
-Route::get('kirim-email','App\Http\Controllers\TestQueueEmails@sendTestEmails');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
@@ -45,10 +43,6 @@ Route::get('/home', function() {
 })->name('home')->middleware('auth');
 
 
-Route::get('/users/userpdf', [\App\Http\Controllers\UserController::class, 'userpdf']);
-
-Route::resource('users', \App\Http\Controllers\UserController::class)
-    ->middleware('auth');
 
 // Route::get('/barang/cetakpdf',[\App\Http\Controllers\BarangController::class, 'Barang.cetakpdf'] )
 // ->name('barang.cetakpdf')->middleware('auth');
@@ -56,14 +50,28 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
 
 
 
-Route::get('/barang/cetakpdf', [\App\Http\Controllers\BarangController::class, 'cetakpdf']);
 
-Route::resource('barang', \App\Http\Controllers\BarangController::class)
-    ->middleware('auth');
 
 // Route::get('barang/cetakpdsf','HomeController@pdf');
 
-    // Route::resource('barang/cetakpdf', \App\Http\Controllers\BarangController-cetakPDF::class)
-    // ->middleware('auth');
+// Route::resource('barang/cetakpdf', \App\Http\Controllers\BarangController-cetakPDF::class)
+// ->middleware('auth');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('transaksi', \App\Http\Controllers\TransaksiController::class)
+    ;
+    
+    
+    Route::group(['middleware' => ['role:1']], function () {
+        Route::get('/barang/cetakpdf', [\App\Http\Controllers\BarangController::class, 'cetakpdf']);
+        Route::get('/users/userpdf', [\App\Http\Controllers\UserController::class, 'userpdf']);
+        Route::get('kirim-email','App\Http\Controllers\TestQueueEmails@sendTestEmails');
+        Route::resource('users', \App\Http\Controllers\UserController::class);
+        Route::resource('barang', \App\Http\Controllers\BarangController::class);
+            
+            
+        });
+        
+    });
 
     

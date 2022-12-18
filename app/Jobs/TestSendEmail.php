@@ -38,7 +38,9 @@ class TestSendEmail implements ShouldQueue
             'body' => 'This is for testing email using smtp'
             ];
            
+            \Mail::to('siremadu131@gmail.com')->send(new \App\Mail\MyTestMail($details));
             \Mail::to('siremadu130@gmail.com')->send(new \App\Mail\MyTestMail($details));
+            \Mail::to('siremadu132@gmail.com')->send(new \App\Mail\MyTestMail($details));
            
             dd("Email sudah terkirim.");
         

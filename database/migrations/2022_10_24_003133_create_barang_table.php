@@ -18,7 +18,7 @@ class CreateBarangTable extends Migration
             $table->string("nama");
             $table->integer("jumlah");
             $table->integer("harga");
-            $table->interger("tanggalKadaluarsa");
+            $table->integer("tanggalKadaluarsa");
             $table->timestamps();
         });
     }
